@@ -16,9 +16,11 @@ router.post("/", async (req, res) => {
 
 //UPDATE POST
 router.put("/:id", async (req, res) => {
+  //userId is coming from handleUpdate.
+  //I am including it, when sending the update from front end.
   try {
     const post = await Post.findById(req.params.id);
-    if (post.username === req.body.username) {
+    if (post.userId === req.body.userId) {
       try {
         const updatedPost = await Post.findByIdAndUpdate(
           req.params.id,
@@ -43,7 +45,7 @@ router.put("/:id", async (req, res) => {
 router.delete("/:id", async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
-    if (post.username === req.body.username) {
+    if (post.userId === req.body.userId) {
       try {
         //delete doesn't seem to work.
         //Is it deleteOne() now?

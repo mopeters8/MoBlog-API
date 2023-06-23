@@ -5,13 +5,28 @@ const bcrypt = require("bcrypt");
 
 //UPDATE
 router.put("/:id", async (req, res) => {
-  console.log(req.body.userId + " " + req.params.id);
+  //Prepping/Consolidating Information to update
+
+  //TODO: Use ID's instead.
+  const user = await User.findOne({ username: req.body.oldUsername });
   if (req.body.userId === req.params.id) {
     if (req.body.password) {
-      const salt = await bcrypt.genSalt(10);
-      req.body.password = await bcrypt.hash(req.body.password, salt);
+      const validated = await bcrypt.compare(
+        req.body.currPassword,
+        user.password
+      );
+      if (!validated) {
+        //Return here some form of error when passwords do match.
+        req.body.password = user.password;
+      } else {
+        const salt = await bcrypt.genSalt(10);
+        req.body.password = await bcrypt.hash(req.body.password, salt);
+      }
+    } else {
+      req.body.password = user.password;
     }
 
+    //Sending to update
     try {
       const updatedUser = await User.findByIdAndUpdate(
         req.params.id,
