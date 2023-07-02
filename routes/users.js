@@ -9,6 +9,7 @@ router.put("/:id", async (req, res) => {
 
   //TODO: Use ID's instead.
   const user = await User.findOne({ username: req.body.oldUsername });
+  console.log(user);
   if (req.body.userId === req.params.id) {
     if (req.body.password) {
       const validated = await bcrypt.compare(

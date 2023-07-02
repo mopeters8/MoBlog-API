@@ -74,16 +74,20 @@ router.get("/:id", async (req, res) => {
 
 //GET ALL POSTS
 router.get("/", async (req, res) => {
-  const username = req.query.user;
+  //This no longer works. Needs to be reworked with userid.
+
+  const userId = req.query.userId;
   const catName = req.query.cat;
 
   //can query like:
   //localhost:4000/api/posts/?user=OwenTest
+  console.log(userId);
 
   try {
     let posts;
-    if (username) {
-      posts = await Post.find({ username });
+    if (userId) {
+      posts = await Post.find({ userId });
+      // console.log(posts);
     } else if (catName) {
       posts = await Post.find({
         categories: {
@@ -91,7 +95,7 @@ router.get("/", async (req, res) => {
         },
       });
     } else {
-      posts = await Post.find();
+      posts = await Post.find({ userId: { $ne: "649629ec0acfea8d85361620" } });
     }
     res.status(200).json(posts);
   } catch (err) {
