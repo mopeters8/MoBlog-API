@@ -10,9 +10,9 @@
   },
   "name": "api",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "/api/index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon ./api/index.js"
   },
   "author": "",
   "license": "ISC",
