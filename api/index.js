@@ -43,3 +43,5 @@ app.use("/api/categories", catRoute);
 app.listen("4000", () => {
   console.log("Backend is now running..");
 });
+
+export default app;

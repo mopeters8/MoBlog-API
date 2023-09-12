@@ -12,7 +12,8 @@
   "version": "1.0.0",
   "main": "/api/index.js",
   "scripts": {
-    "start": "nodemon ./api/index.js"
+    "start": "nodemon ./api/index.js",
+    "vercel-build": "echo hello"
   },
   "author": "",
   "license": "ISC",
